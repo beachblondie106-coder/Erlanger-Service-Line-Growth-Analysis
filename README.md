@@ -31,7 +31,7 @@ Compares CMS quality-domain results, overall ratings, and HCAHPS patient-experie
 
 [![Quality and Experience dashboard](assets/dashboard-03-quality-experience.png)](https://public.tableau.com/views/ErlangerHealthSystemStrategicAnalytics/ServiceLinePerformance?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link)
 
-### 4. Community Access Map
+### 4. Community Access & Patient Origin
 
 Combines community-health estimates, population and transportation barriers, service-area roles, and patient-origin patterns.
 
