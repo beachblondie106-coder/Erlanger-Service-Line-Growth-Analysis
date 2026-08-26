@@ -4,8 +4,13 @@ An independent healthcare analytics portfolio project examining Medicare utiliza
 
 ## Explore the project
 
-**[Open the interactive Tableau Public workbook →](https://public.tableau.com/views/ErlangerHealthSystemStrategicAnalytics/ServiceLinePerformance?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link)**  
-**[View or download the dashboard portfolio PDF](docs/erlanger-dashboard-portfolio.pdf)**
+| Resource | What it provides |
+| --- | --- |
+| **[Interactive Tableau Public workbook →](https://public.tableau.com/views/ErlangerHealthSystemStrategicAnalytics/ServiceLinePerformance)** | Five interactive dashboards with filters, tooltips, and dashboard actions |
+| **[Dashboard portfolio PDF](docs/erlanger-dashboard-portfolio.pdf)** | Printable, five-page snapshot of the completed dashboards |
+| **[Executive strategic-analysis presentation](docs/erlanger-strategic-analysis.pdf)** | Executive findings, recommendations, and decision context |
+| **[Project data dictionary](data/data-dictionary.xlsx)** | Table grains, 229 source fields, logical relationships, calculations, sources, limitations, and validation benchmarks |
+| **[Packaged Tableau workbook](tableau/erlanger-health-system-strategic-analytics.twbx)** | Downloadable `.twbx` containing the five dashboards and six packaged extracts |
 
 > **Portfolio disclosure:** This project was independently developed from publicly available information. It was not commissioned, sponsored, reviewed, or endorsed by Erlanger, and it does not contain confidential internal Erlanger data. Estimated payment totals, service-line assignments, market-share calculations, community burden scores, payer-rate summaries, and strategic scenarios are analyst-constructed. CDC PLACES values are model-based estimates, and American Community Survey values are survey estimates.
 
@@ -17,31 +22,31 @@ Click any dashboard image to open the interactive Tableau workbook.
 
 Examines inpatient and outpatient utilization, estimated Medicare payments, year-over-year trends, and service-line drill-downs.
 
-[![Service Line Performance dashboard](assets/dashboard-01-service-line-performance.png)](https://public.tableau.com/views/ErlangerHealthSystemStrategicAnalytics/ServiceLinePerformance?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link)
+[![Service Line Performance dashboard](assets/dashboard-01-service-line-performance.png)](https://public.tableau.com/views/ErlangerHealthSystemStrategicAnalytics/ServiceLinePerformance)
 
 ### 2. Market Share & Trend
 
 Evaluates Erlanger's Original Medicare inpatient position relative to Memorial and Parkridge by service line and year.
 
-[![Market Share and Trend dashboard](assets/dashboard-02-market-share-trend.png)](https://public.tableau.com/views/ErlangerHealthSystemStrategicAnalytics/ServiceLinePerformance?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link)
+[![Market Share and Trend dashboard](assets/dashboard-02-market-share-trend.png)](https://public.tableau.com/views/ErlangerHealthSystemStrategicAnalytics/ServiceLinePerformance)
 
 ### 3. Quality & Experience
 
 Compares CMS quality-domain results, overall ratings, and HCAHPS patient-experience measures.
 
-[![Quality and Experience dashboard](assets/dashboard-03-quality-experience.png)](https://public.tableau.com/views/ErlangerHealthSystemStrategicAnalytics/ServiceLinePerformance?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link)
+[![Quality and Experience dashboard](assets/dashboard-03-quality-experience.png)](https://public.tableau.com/views/ErlangerHealthSystemStrategicAnalytics/ServiceLinePerformance)
 
-### 4. Community Access & Patient Origin
+### 4. Community Access Map
 
 Combines community-health estimates, population and transportation barriers, service-area roles, and patient-origin patterns.
 
-[![Community Access Map dashboard](assets/dashboard-04-community-access-map.png)](https://public.tableau.com/views/ErlangerHealthSystemStrategicAnalytics/ServiceLinePerformance?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link)
+[![Community Access Map dashboard](assets/dashboard-04-community-access-map.png)](https://public.tableau.com/views/ErlangerHealthSystemStrategicAnalytics/ServiceLinePerformance)
 
 ### 5. Payer Price Explorer
 
 Explores published outpatient facility negotiated rates by payer, plan, service line, methodology, setting, and billing class.
 
-[![Payer Price Explorer dashboard](assets/dashboard-05-payer-price-explorer.png)](https://public.tableau.com/views/ErlangerHealthSystemStrategicAnalytics/ServiceLinePerformance?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link)
+[![Payer Price Explorer dashboard](assets/dashboard-05-payer-price-explorer.png)](https://public.tableau.com/views/ErlangerHealthSystemStrategicAnalytics/ServiceLinePerformance)
 
 ## Strategic business problem
 
@@ -109,16 +114,18 @@ The Tableau model uses logical relationships instead of one large physical join 
 
 | Primary table and grain | Related table | Relationship key | Purpose |
 | --- | --- | --- | --- |
-| Inpatient DRG: hospital × year × DRG | Facility Quality | `CCN` ↔ `facility_id` | Add hospital attributes and quality context without changing DRG grain |
+| Inpatient DRG: hospital × year × DRG | Facility Quality | `Rndrng_Prvdr_CCN` ↔ `facility_id` | Add hospital attributes and quality context without changing DRG grain |
 | Inpatient DRG | Service Line Rules | `service_line` | Preserve an auditable record of the analyst-created keyword classification |
 | Outpatient Volume: hospital × year × APC | Facility Quality | `Rndrng_Prvdr_CCN` ↔ `facility_id` | Compare outpatient activity with the same facility context |
 | HCAHPS: facility × measure × period | Facility Quality | `facility_id` | Benchmark patient-experience measures in a consistent facility filter context |
-| Community Health: county × metric | Patient Origin | `county_fips` | Compare community need with the public all-payer patient-origin table |
 | ZIP Access: ZCTA × metric × estimate type | Patient Origin | `county_fips` | Add county patient-origin context to ZCTA-level need estimates |
-| ZIP Access | Community Health | `county_fips` | Compare ZCTA estimates with county-level conditions without physically blending grains |
+| Community Health: county × metric | Standalone logical table | None | Preserve county-level health estimates without duplicating ZCTA or patient-origin values |
+| Facility Quality quality-domain fields | Standalone pivoted view | `facility_id` retained as the facility identifier | Compare better, no-different, and worse measure counts by quality domain |
 | Negotiated Rates: payer × service description × rate methodology | Standalone logical table | None | Prevent millions of public rate observations from duplicating utilization records |
+| Market Summary: hospital × year | Standalone summary table | None | Provide a stable hospital-year comparison without replacing the detailed inpatient source |
+| Service Line Summary: service line × latest year | Standalone summary table | None | Provide a latest-year service-line snapshot; use Inpatient DRG for longitudinal trends |
 
-The outpatient source table does not contain an official service-line field. Any outpatient service-line grouping must therefore be created and documented in Tableau and validated before operational use.
+The outpatient source table does not contain an official service-line field. The Tableau workbook therefore uses an analyst-created keyword classification documented in the data dictionary. It should be validated with clinical leadership before operational use.
 
 ## Analytical calculations
 
@@ -206,11 +213,12 @@ erlanger-healthcare-analytics/
 │   ├── dashboard-04-community-access-map.png
 │   └── dashboard-05-payer-price-explorer.png
 ├── docs/
-│   └── erlanger-dashboard-portfolio.pdf
+│   ├── erlanger-dashboard-portfolio.pdf
+│   └── erlanger-strategic-analysis.pdf
 ├── data/
 │   └── data-dictionary.xlsx
 └── tableau/
-    └── erlanger-dashboard.twbx
+    └── erlanger-health-system-strategic-analytics.twbx
 ```
 
 ## Skills demonstrated
@@ -228,4 +236,3 @@ erlanger-healthcare-analytics/
 ## Appropriate use
 
 This work is suitable as a public-data portfolio demonstration and as a starting point for further analysis. Before any investment, contracting, capacity, referral, or community-access decision, the findings should be validated with all-payer claims or discharge data, internal encounter and referral data, capacity and workforce information, contract-level detail, finance-reviewed economics, and clinical leadership review of the service-line classification.
-
