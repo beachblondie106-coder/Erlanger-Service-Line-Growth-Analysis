@@ -8,7 +8,7 @@ An independent healthcare analytics portfolio project examining Medicare utiliza
 | --- | --- |
 | **[Interactive Tableau Public workbook →](https://public.tableau.com/views/ErlangerHealthSystemStrategicAnalytics/ServiceLinePerformance)** | Five interactive dashboards with filters, tooltips, and dashboard actions |
 | **[Dashboard portfolio PDF](docs/erlanger-dashboard-portfolio.pdf)** | Printable, five-page snapshot of the completed dashboards |
-| **[Executive strategic-analysis presentation](docs/erlanger-strategic-analysis.pdf)** | Executive findings, recommendations, and decision context |
+| **[Executive strategic-analysis presentation](docs/Erlanger%20Service%20Line%20Growth%20%26%20Community%20Access.pdf)** | Executive findings, recommendations, and decision context |
 | **[Project data dictionary](data/data-dictionary.xlsx)** | Table grains, 229 source fields, logical relationships, calculations, sources, limitations, and validation benchmarks |
 | **[Packaged Tableau workbook](tableau/erlanger-health-system-strategic-analytics.twbx)** | Downloadable `.twbx` containing the five dashboards and six packaged extracts |
 
