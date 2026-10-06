@@ -236,3 +236,10 @@ erlanger-healthcare-analytics/
 ## Appropriate use
 
 This work is suitable as a public-data portfolio demonstration and as a starting point for further analysis. Before any investment, contracting, capacity, referral, or community-access decision, the findings should be validated with all-payer claims or discharge data, internal encounter and referral data, capacity and workforce information, contract-level detail, finance-reviewed economics, and clinical leadership review of the service-line classification.
+
+## Author
+
+**Lisa A. Phillips, MBA**  
+Healthcare Operations & Analytics | Commercial, Medicare & Medicaid | Business Intelligence
+
+[LinkedIn](https://www.linkedin.com/in/lisaphillips106) · [GitHub](https://github.com/beachblondie106-coder)
