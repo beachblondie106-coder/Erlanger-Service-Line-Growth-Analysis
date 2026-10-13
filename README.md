@@ -54,7 +54,7 @@ The project addresses a practical health-system strategy question:
 
 **Where does the available public evidence indicate that Erlanger could defend a strong service line, recapture lost Medicare volume, improve community access, strengthen patient experience, or investigate payer-rate variation?**
 
-The analysis compares Erlanger (CCN 440104) with Memorial and Parkridge for Original Medicare fee-for-service activity. It then adds community need, patient-origin, quality, patient-experience, and price-transparency context. The goal is to create a decision-support baseline—not to represent Erlanger's complete market, internal operating performance, profitability, or strategic plan.
+The analysis compares Erlanger (CCN 440104) with Memorial and Parkridge for Original Medicare fee-for-service activity. It then adds community need, patient-origin, quality, patient-experience, and price-transparency context. The goal is to provide a public data based starting point. It does not represent Erlanger's complete market, internal operating performance, profitability, or strategic plan.
 
 ## Executive summary
 
